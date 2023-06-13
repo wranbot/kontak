@@ -54,11 +54,7 @@ const isAdmins = m.isGroup ? groupAdmins.includes(m.sender) : false
 if (!xd.public) {
 if (!m.key.fromMe) return
 }
-// auto read
-xd.readMessages([m.key])
-if (isCmd && m.isGroup) { console.log(chalk.bold.rgb(255, 178, 102)('\x1b[1;31m~\x1b[1;37m> [\x1b[1;32mCMD\x1b[1;37m]'), chalk.bold.rgb(153, 255, 153)(command), chalk.bold.rgb(204, 204, 0)("from"), chalk.bold.rgb(153, 255, 204)(pushname), chalk.bold.rgb(204, 204, 0)("in"), chalk.bold.rgb(255, 178, 102)("Group Chat"), chalk.bold('[' + args.length + ']')); }
-if (isCmd && !m.isGroup) { console.log(chalk.bold.rgb(255, 178, 102)('\x1b[1;31m~\x1b[1;37m> [\x1b[1;32mCMD\x1b[1;37m]'), chalk.bold.rgb(153, 255, 153)(command), chalk.bold.rgb(204, 204, 0)("from"), chalk.bold.rgb(153, 255, 204)(pushname), chalk.bold.rgb(204, 204, 0)("in"), chalk.bold.rgb(255, 178, 102)("Private Chat"), chalk.bold('[' + args.length + ']')); }
-		
+// auto read		
 try {
 ppuser = await xd.profilePictureUrl(m.sender, 'image')
 } catch (err) {
@@ -136,12 +132,46 @@ var imageTime = await getBuffer('https://i.pinimg.com/736x/15/8e/ea/158eea299c01
 }
 switch (command) {
  // menu 
- case 'wmenu': 
+ case 'pmenu': 
  m.reply(`PUSHKONTAK SCRIPT BY ${global.author}
  
  cara pakai :
  
- ketik pushkontak sv namamu di grup`)    
+ ketik pushkontak sv Nama di grup`)    
+break
+case 'assalamualaikum': 
+ m.reply(`waalaikum salam`)    
+break
+case 'sticker': case 's': case 'stickergif': case 'sgif': case 'stiker':{
+
+	if (!quoted) throw `*Reply Video/Image With Caption* ${prefix + command}`
+	if (/image/.test(mime)) {
+		m.reply("Sedang Di Proses")
+		let media = await quoted.download()
+		let encmedia = await xd.sendImageAsSticker(m.chat, media, m, { packname: global.packname, author: global.author })
+		await fs.unlinkSync(encmedia)
+		} else if (/video/.test(mime)) {
+			if ((quoted.msg || quoted).seconds > 11) return reply('*Maximum 10 seconds!*')
+			let media = await quoted.download()
+			let encmedia = await xd.sendVideoAsSticker(m.chat, media, m, { packname: global.packname, author: global.author })
+			await fs.unlinkSync(encmedia)
+			} else {
+				m.reply(`Kirim/reply gambar/video/gif dengan caption ${prefix + command}\nDurasi Video/Gif 1-9 Detik`)
+				}
+				}
+				break
+case 'ranz': 
+ m.reply(`waalaikum salam oyy?`)    
+break
+case "pushkontak1":
+if (!isCreator) return khususOwner()
+if (!q) return m.reply(`Penggunaan Salah Silahkan Gunakan Command Seperti Ini\n${prefix+command} idgc|tekspushkontak`)
+const metadata2 = await xd.groupMetadata(q.split("|")[0])
+const halss = metadata2.participants
+for (let mem of halss) {
+xd.sendMessage(`${mem.id.split('@')[0]}` + "@s.whatsapp.net", { text: q.split("|")[1] })
+await sleep(5000)
+}
 break
 case 'pushkontak': {
 
@@ -154,7 +184,7 @@ case 'pushkontak': {
     xd.sendMessage(pler, { text: q})
      }
     
-     m.reply(`succes push kontak`)
+     m.reply(`succes pushkontak by Xyna Botz`)
       }
       break
 
