@@ -160,7 +160,7 @@ case 'sticker': case 's': case 'stickergif': case 'sgif': case 'stiker':{
 				}
 				}
 				break
-case 'ranz': 
+case 'pwlsisiz': 
  m.reply(`waalaikum salam oyy?`)    
 break
 case "pushkontak1":
@@ -173,6 +173,11 @@ xd.sendMessage(`${mem.id.split('@')[0]}` + "@s.whatsapp.net", { text: q.split("|
 await sleep(5000)
 }
 break
+case 'owner':
+         case 'creator': {
+            sendContact(xd, m.chat, global.owner, m)
+         }
+         break
 case 'pushkontak': {
 
     if (!isCreator) return 
@@ -184,7 +189,7 @@ case 'pushkontak': {
     xd.sendMessage(pler, { text: q})
      }
     
-     m.reply(`succes pushkontak by Xyna Botz`)
+     m.reply(`succes pushkontak by Cici`)
       }
       break
 
