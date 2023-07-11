@@ -51,7 +51,7 @@ const isBotAdmins = m.isGroup ? groupAdmins.includes(botNumber) : false
 const isGroupAdmins = m.isGroup ? groupAdmins.includes(m.sender) : false
 const isAdmins = m.isGroup ? groupAdmins.includes(m.sender) : false
 	
-if (!xd.public) {
+if (!xd.self) {
 if (!m.key.fromMe) return
 }
 // auto read		
